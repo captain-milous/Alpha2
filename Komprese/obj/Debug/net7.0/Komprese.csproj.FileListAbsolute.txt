@@ -1,0 +1,15 @@
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\Komprese.exe
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\Komprese.deps.json
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\Komprese.runtimeconfig.json
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\Komprese.dll
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\Komprese.pdb
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.csproj.AssemblyReference.cache
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.AssemblyInfoInputs.cache
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.AssemblyInfo.cs
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.csproj.CoreCompileInputs.cache
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.dll
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\refint\Komprese.dll
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.pdb
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\Komprese.genruntimeconfig.cache
+C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\obj\Debug\net7.0\ref\Komprese.dll
