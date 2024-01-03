@@ -44,7 +44,7 @@ namespace Komprese.src.LogHandling
         /// Zapíše text do logovacího souboru s aktuálním datem a časem.
         /// </summary>
         /// <param name="text">Text k zapsání do logovacího souboru.</param>
-        public void WriteLogFile(string text)
+        public void Write(string text)
         {
             try
             {

@@ -1,0 +1,8 @@
+03.01.2024 13:46:08: Test
+03.01.2024 13:46:08: Test
+03.01.2024 13:46:08: Test 2
+03.01.2024 13:46:08: Pokus o zapsání do _log\LogFile.txt se nepovedl.
+03.01.2024 13:46:19: Test
+03.01.2024 13:46:19: Test
+03.01.2024 13:46:19: Test 2
+03.01.2024 13:46:19: Pokus o zapsání do _log\LogFile.txt se nepovedl.

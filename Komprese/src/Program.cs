@@ -34,6 +34,7 @@ namespace Komprese.src
             #endregion
 
 
+
             /*
             Console.WriteLine($"InputFilePath: {config.InputFilePath}");
             Console.WriteLine($"OutputFilePath: {config.OutputFilePath}");
