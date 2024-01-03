@@ -2,5 +2,6 @@
   <InputFilePath>C:\path\to\input.txt</InputFilePath>
   <OutputFilePath>C:\path\to\output.txt</OutputFilePath>
   <LogFilePath>C:\path\to\log.txt</LogFilePath>
+  <DictionaryFilePath>dictionary.xml</DictionaryFilePath>
   <!-- Další konfigurační položky podle potřeby -->
 </Configuration>

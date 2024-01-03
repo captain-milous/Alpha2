@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Komprese.data
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class FileHandler
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public FileHandler() { }
+
+        /// <summary>
+        /// Čte obsah souboru na zadané cestě.
+        /// </summary>
+        /// <param name="filePath">Cesta k souboru, který má být přečten.</param>
+        /// <returns>Obsah přečteného souboru nebo null v případě chyby.</returns>
+        public string ReadFromFile(string filePath)
+        {
+            try
+            {
+                return File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Chyba při čtení souboru {filePath}: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Zapíše zadaný obsah do souboru na zadané cestě.
+        /// </summary>
+        /// <param name="filePath">Cesta k souboru, do kterého má být obsah zapsán.</param>
+        /// <param name="content">Obsah k zápisu do souboru.</param>
+        public void WriteToFile(string filePath, string content)
+        {
+            try
+            {
+                File.WriteAllText(filePath, content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Ukládá obsah slovníku do XML souboru.
+        /// </summary>
+        /// <param name="dict">Slovník, který má být uložen do XML souboru.</param>
+        /// <param name="filePath">Cesta k cílovému XML souboru</param>
+        public void WriteDictToXml(Dictionary<string, string> dict, string filePath)
+        {
+            try
+            {
+                SerializableDictionary serializableDict = new SerializableDictionary();
+                foreach (var kvp in dict)
+                {
+                    serializableDict.Items.Add(kvp);
+                }
+
+                DataContractSerializer serializer = new DataContractSerializer(typeof(SerializableDictionary));
+                using (FileStream fs = new FileStream(filePath, FileMode.Create))
+                {
+                    serializer.WriteObject(fs, serializableDict);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Načítá obsah slovníku ze XML souboru.
+        /// </summary>
+        /// <param name="filePath">Cesta k existujícímu XML souboru.</param>
+        /// <returns>Slovník přečtený ze souboru.</returns>
+        public Dictionary<string, string> ReadDictFromXml(string filePath)
+        {
+            try
+            {
+                DataContractSerializer serializer = new DataContractSerializer(typeof(SerializableDictionary));
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
+                {
+                    SerializableDictionary serializableDict = (SerializableDictionary)serializer.ReadObject(fs);
+
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+                    foreach (var kvp in serializableDict.Items)
+                    {
+                        dict.Add(kvp.Key, kvp.Value);
+                    }
+
+                    return dict;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Chyba při čtení ze souboru {filePath}: {ex.Message}");
+                return new Dictionary<string, string>();
+            }
+        }
+
+    }
+}

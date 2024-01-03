@@ -8,10 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="log\" />
-    <Folder Include="data\" />
     <Folder Include="src\Compression\" />
     <Folder Include="src\LogHandling\" />
+    <Folder Include="src\UI\" />
   </ItemGroup>
 
 </Project>

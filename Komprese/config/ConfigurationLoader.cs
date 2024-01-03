@@ -17,6 +17,7 @@ namespace Komprese.config
         public string InputFilePath { get; private set; }
         public string OutputFilePath { get; private set; }
         public string LogFilePath { get; private set; }
+        public string DictionaryFilePath { get; private set; }
 
         /// <summary>
         /// 
@@ -40,6 +41,7 @@ namespace Komprese.config
                 InputFilePath = GetValueFromXml(doc, "InputFilePath");
                 OutputFilePath = GetValueFromXml(doc, "OutputFilePath");
                 LogFilePath = GetValueFromXml(doc, "LogFilePath");
+                DictionaryFilePath = GetValueFromXml(doc, "DictionaryFilePath");
 
                 // Další načítané hodnoty podle potřeby
 
