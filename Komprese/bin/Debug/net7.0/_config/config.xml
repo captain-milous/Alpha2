@@ -1,6 +1,6 @@
 <Configuration>
-  <InputFilePath>C:\path\to\input.txt</InputFilePath>
-  <OutputFilePath>C:\path\to\output.txt</OutputFilePath>
+  <InputFilePath>_data\input.txt</InputFilePath>
+  <OutputFilePath>_data\output.txt</OutputFilePath>
   <LogFilePath>_log\LogFile.txt</LogFilePath>
   <DictionaryFilePath>_data\dictionary.xml</DictionaryFilePath>
 </Configuration>

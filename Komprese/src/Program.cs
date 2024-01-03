@@ -1,4 +1,5 @@
-﻿using Komprese.src.FileHandling;
+﻿using Komprese.src.CompressHandling;
+using Komprese.src.FileHandling;
 using Komprese.src.LogHandling;
 using Komprese.src.UI;
 
@@ -6,14 +7,16 @@ namespace Komprese.src
 {
     public class Program
     {
-        public static ConfigurationLoader config;
-        public static LogHandler log;
-        public static FileHandler fileHandler = new FileHandler();
-        public static Dictionary<string, string> compressDict = new Dictionary<string, string>();
+        static ConfigurationLoader config;
+        static LogHandler log;
+        static FileHandler fileHandler = new FileHandler();
+        static Dictionary<string, string> compressDict = new Dictionary<string, string>();
 
         static void Main(string[] args)
         {
             bool run = true;
+            string text = string.Empty;
+
             #region Load Configuration
             try
             {
@@ -21,10 +24,7 @@ namespace Komprese.src
                 config.LoadConfiguration();
                 log = new LogHandler(config.LogFilePath);
                 compressDict = fileHandler.ReadDictFromXml(config.DictionaryFilePath);
-                foreach (var kvp in compressDict)
-                {
-                    Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-                }
+                text = fileHandler.ReadFromFile(config.InputFilePath);
             }
             catch (Exception ex)
             {
@@ -32,22 +32,48 @@ namespace Komprese.src
                 run = false;
             }
             #endregion
+            /*  
+             * Empty Dict:
+             * 
+             * Dictionary<string, string> dict = new Dictionary<string, string>();
+             * fileHandler.WriteDictToXml(dict, config.DictionaryFilePath);
+             * 
+             */
+            
+            Compression test = new Compression(text, compressDict);
+            Console.WriteLine(test.CompressText);
+            if (string.IsNullOrEmpty(test.CompressText))
+            {
+                log.Write("Text byl úspěšně zkomprimován.");
+                try
+                {
+                    fileHandler.WriteToFile(config.OutputFilePath, test.CompressText);
+                    log.Write("Zkomprimovaný text byl úspěšně uložen.");
+                }
+                catch 
+                {
+                    log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
+                }
+            }
+            else
+            {
+                log.Write("Text se nepodařilo zkomprimovat.");
+            }
 
-
-
+            compressDict = test.CompressDict;
+            /*
+            foreach (var kvp in compressDict)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }*/
+            fileHandler.WriteDictToXml(compressDict, config.DictionaryFilePath);
+            
             /*
             Console.WriteLine($"InputFilePath: {config.InputFilePath}");
             Console.WriteLine($"OutputFilePath: {config.OutputFilePath}");
             Console.WriteLine($"LogFilePath: {config.LogFilePath}");
             Console.WriteLine($"Dictionary: {config.DictionaryFilePath}");
             */
-            /*
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("Key1", "Value1");
-            dict.Add("Key2", "Value2");
-            dict.Add("Key3", "Value3");
-
-            fileHandler.WriteDictToXml(dict, config.DictionaryFilePath);*/
         }
     }
 }
