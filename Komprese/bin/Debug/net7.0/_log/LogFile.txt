@@ -16,3 +16,8 @@
 03.01.2024 21:14:47: Text se nepodařilo zkomprimovat.
 03.01.2024 21:15:18: Text se nepodařilo zkomprimovat.
 03.01.2024 21:15:48: Text se nepodařilo zkomprimovat.
+03.01.2024 21:26:57: Text se nepodařilo zkomprimovat.
+03.01.2024 21:27:43: Text se nepodařilo zkomprimovat.
+03.01.2024 21:28:55: Text se nepodařilo zkomprimovat.
+03.01.2024 21:29:15: Text byl úspěšně zkomprimován.
+03.01.2024 21:29:15: Zkomprimovaný text byl úspěšně uložen.

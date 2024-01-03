@@ -41,8 +41,8 @@ namespace Komprese.src
              */
             
             Compression test = new Compression(text, compressDict);
-            Console.WriteLine(test.CompressText);
-            if (string.IsNullOrEmpty(test.CompressText))
+            //Console.WriteLine(test.CompressText);
+            if (!string.IsNullOrEmpty(test.CompressText))
             {
                 log.Write("Text byl úspěšně zkomprimován.");
                 try
