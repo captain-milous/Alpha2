@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Komprese.data
+namespace Komprese.src.FileHandling
 {
     /// <summary>
     /// Slovník, který lze serializovat a deserializovat do XML

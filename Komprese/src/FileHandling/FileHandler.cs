@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Komprese.data
+namespace Komprese.src.FileHandling
 {
     /// <summary>
-    /// 
+    /// Třída FileHandler poskytuje metody pro čtení a zápis do souborů, a také pro práci s obsahem slovníku a jeho ukládání do/čtení ze souborů ve formátu XML.
     /// </summary>
     public class FileHandler
     {
         /// <summary>
-        /// 
+        /// Konstruktor třídy FileHandler.
         /// </summary>
         public FileHandler() { }
 

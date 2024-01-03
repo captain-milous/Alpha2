@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Komprese.config
+namespace Komprese.src.UI
 {
     /// <summary>
-    /// 
+    /// Třída ConfigurationLoader slouží k načítání konfigurace ze souboru XML.
+    /// Obsahuje vlastnosti pro cesty k vstupnímu, výstupnímu, logovacímu a slovníkovému souboru.
     /// </summary>
     public class ConfigurationLoader
     {
-        private readonly string filePath;
+        private readonly string filePath = "_config\\config.xml";
 
         public string InputFilePath { get; private set; }
         public string OutputFilePath { get; private set; }
@@ -20,32 +21,23 @@ namespace Komprese.config
         public string DictionaryFilePath { get; private set; }
 
         /// <summary>
-        /// 
+        /// Konstruktor třídy ConfigurationLoader.
         /// </summary>
-        /// <param name="filePath"></param>
-        public ConfigurationLoader(string filePath)
-        {
-            this.filePath = filePath;
-        }
+        public ConfigurationLoader(){ }
 
         /// <summary>
-        /// 
+        /// Načte konfiguraci ze souboru XML a nastaví odpovídající vlastnosti.
         /// </summary>
         public void LoadConfiguration()
         {
             try
             {
                 XDocument doc = XDocument.Load(filePath);
-
-                // Načtení hodnot z XML
                 InputFilePath = GetValueFromXml(doc, "InputFilePath");
                 OutputFilePath = GetValueFromXml(doc, "OutputFilePath");
                 LogFilePath = GetValueFromXml(doc, "LogFilePath");
                 DictionaryFilePath = GetValueFromXml(doc, "DictionaryFilePath");
-
-                // Další načítané hodnoty podle potřeby
-
-                Console.WriteLine("Konfigurace načtena úspěšně.");
+                //Console.WriteLine("Konfigurace načtena úspěšně.");
             }
             catch (Exception ex)
             {
@@ -54,11 +46,11 @@ namespace Komprese.config
         }
 
         /// <summary>
-        /// 
+        /// Získá hodnotu z XML elementu podle zadaného názvu.
         /// </summary>
-        /// <param name="doc"></param>
-        /// <param name="elementName"></param>
-        /// <returns></returns>
+        /// <param name="doc">XDocument reprezentující načtený XML soubor.</param>
+        /// <param name="elementName">Název hledaného XML elementu.</param>
+        /// <returns>Hodnota XML elementu nebo prázdný řetězec, pokud není nalezen.</returns>
         private string GetValueFromXml(XDocument doc, string elementName)
         {
             XElement element = doc.Element("Configuration")?.Element(elementName);

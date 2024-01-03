@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <Folder Include="src\Compression\" />
-    <Folder Include="src\LogHandling\" />
-    <Folder Include="src\UI\" />
   </ItemGroup>
 
 </Project>
