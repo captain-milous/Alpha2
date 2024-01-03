@@ -66,8 +66,7 @@ namespace Komprese.src.CompressHandling
                 string[] words = sentence.Split(' ');
                 foreach (var word in words)
                 {
-                    string cleanedWord = Regex.Replace(word, @"[^\w\s]", "");
-                    string key = cleanedWord.Length >= 3 ? cleanedWord.Substring(0, 3) : cleanedWord;
+                    string key = word.Length >= 3 ? word.Substring(0, 3) : word;
                     if (!CompressDict.ContainsValue(word))
                     {
                         if (!CompressDict.ContainsKey(key))
@@ -102,9 +101,52 @@ namespace Komprese.src.CompressHandling
             return output;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private string Decompress(string text)
         {
             string output = string.Empty;
+
+            var punctuationMatches = Regex.Matches(text, @"[.,;!?""'\-]");
+            char[] interpunctionOrder = string.Join("", punctuationMatches.Select(match => match.Value)).ToCharArray();
+
+            var parts = Regex.Split(text, @"[.,;!?""'\-]").ToList();
+            List<string> splitText = parts.Select(part => part.Trim()).Where(part => !string.IsNullOrEmpty(part)).ToList();
+
+            for(int i = 0; i < splitText.Count; i++)
+            {
+                string sentence = splitText[i];
+                string[] keys = sentence.Split(' ');
+                foreach (var key in keys)
+                {
+                    if (CompressDict.ContainsKey(key))
+                    {
+                        if (string.IsNullOrEmpty(output))
+                        {
+                            output += CompressDict[key];
+                        }
+                        else
+                        {
+                            output += " " + CompressDict[key];
+                        }
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(output))
+                        {
+                            output += key;
+                        }
+                        else
+                        {
+                            output += " " + key;
+                        }
+                    }
+                }
+                output += interpunctionOrder[i];
+            }
 
             return output;
         }
