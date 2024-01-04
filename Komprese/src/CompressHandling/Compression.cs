@@ -17,12 +17,9 @@ namespace Komprese.src.CompressHandling
         private char[] interpunkce = { '.', '!', '?', ',', ';', ':', '(', ')', '[', ']', '{', '}', '-', '—', '–', '„', '“', '”', '‘', '’' };
         public string RawText { get; private set; }
         public string CompressText { get; private set;}
-        public Dictionary<string, string> CompressDict { get; private set; }
-        public LogHandler Log { get; private set; }
 
-        public Compression(string text, Dictionary<string, string> compressDict)
+        public Compression(string text)
         {
-            CompressDict = compressDict;
             RawText = text;
             CompressText = Compress(text);
         }
@@ -31,9 +28,8 @@ namespace Komprese.src.CompressHandling
         /// </summary>
         /// <param name="text"></param>
         /// <param name="decompress"></param>
-        public Compression(string text, Dictionary<string, string> compressDict, bool decompress)
+        public Compression(string text, bool decompress)
         {
-            CompressDict = compressDict;
             if (decompress)
             {
                 CompressText = text;
@@ -48,7 +44,6 @@ namespace Komprese.src.CompressHandling
 
         private string Compress(string text)
         {
-            //Console.WriteLine(text);
             string output = string.Empty;
 
             var punctuationMatches = Regex.Matches(text, @"[.,;!?""'\-]");
@@ -57,9 +52,6 @@ namespace Komprese.src.CompressHandling
             var parts = Regex.Split(text, @"[.,;!?""'\-]").ToList();
             List<string> splitText = parts.Select(part => part.Trim()).Where(part => !string.IsNullOrEmpty(part)).ToList();
 
-            Console.WriteLine(interpunctionOrder.Length);
-            Console.WriteLine(splitText.Count);
-
             for(int i = 0; i < splitText.Count; i++)
             {
                 string sentence = splitText[i];
@@ -67,11 +59,11 @@ namespace Komprese.src.CompressHandling
                 foreach (var word in words)
                 {
                     string key = word.Length >= 3 ? word.Substring(0, 3) : word;
-                    if (!CompressDict.ContainsValue(word))
+                    if (!Program.CompressDict.ContainsValue(word))
                     {
-                        if (!CompressDict.ContainsKey(key))
+                        if (!Program.CompressDict.ContainsKey(key))
                         {
-                            CompressDict.Add(key, word);
+                            Program.CompressDict.Add(key, word);
                         }
                         else
                         {
@@ -81,9 +73,9 @@ namespace Komprese.src.CompressHandling
                             {
                                 newKey = $"{key}{index}";
                                 index++;
-                            } while (CompressDict.ContainsKey(newKey));
+                            } while (Program.CompressDict.ContainsKey(newKey));
 
-                            CompressDict.Add(newKey, word);
+                            Program.CompressDict.Add(newKey, word);
                             key = newKey;
                         }
                     }
@@ -122,15 +114,15 @@ namespace Komprese.src.CompressHandling
                 string[] keys = sentence.Split(' ');
                 foreach (var key in keys)
                 {
-                    if (CompressDict.ContainsKey(key))
+                    if (Program.CompressDict.ContainsKey(key))
                     {
                         if (string.IsNullOrEmpty(output))
                         {
-                            output += CompressDict[key];
+                            output += Program.CompressDict[key];
                         }
                         else
                         {
-                            output += " " + CompressDict[key];
+                            output += " " + Program.CompressDict[key];
                         }
                     }
                     else
@@ -147,7 +139,6 @@ namespace Komprese.src.CompressHandling
                 }
                 output += interpunctionOrder[i];
             }
-
             return output;
         }
     }

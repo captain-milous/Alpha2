@@ -7,31 +7,39 @@ namespace Komprese.src
 {
     public class Program
     {
-        static ConfigurationLoader config;
-        static LogHandler log;
-        static FileHandler fileHandler = new FileHandler();
-        static Dictionary<string, string> compressDict = new Dictionary<string, string>();
+        public static ConfigurationLoader Config;
+        public static LogHandler Log;
+        public static FileHandler FileHandler = new FileHandler();
+        public static Dictionary<string, string> CompressDict = new Dictionary<string, string>();
 
         static void Main(string[] args)
         {
             bool run = true;
             string text = string.Empty;
 
+            Console.WriteLine(MainMenuUI.Oddelovac);
+            Console.WriteLine("Vítejte v programu Alpha! (Generátor rozvrhů)");
+            Console.WriteLine("Autor: Miloš Tesař C4b");
+            Console.WriteLine(MainMenuUI.Oddelovac);
+
             #region Load Configuration
             try
             {
-                config = new ConfigurationLoader();
-                config.LoadConfiguration();
-                log = new LogHandler(config.LogFilePath);
-                compressDict = fileHandler.ReadDictFromXml(config.DictionaryFilePath);
-                text = fileHandler.ReadFromFile(config.InputFilePath);
+                Config = new ConfigurationLoader();
+                Config.LoadConfiguration();
+                Log = new LogHandler(Config.LogFilePath);
+                CompressDict = FileHandler.ReadDictFromXml(Config.DictionaryFilePath);
+                text = FileHandler.ReadFromFile(Config.InputFilePath);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Chyba: {ex.Message}");
+                Log.Write($"Chyba: {ex.Message}");
                 run = false;
             }
             #endregion
+
+            MainMenuUI.Start(run);
             /*  
              * Empty Dict:
              * 
@@ -40,33 +48,32 @@ namespace Komprese.src
              * 
              */
             
-            Compression test = new Compression(text, compressDict);
+            Compression test = new Compression(text);
             //Console.WriteLine(test.CompressText);
             if (!string.IsNullOrEmpty(test.CompressText))
             {
-                log.Write("Text byl úspěšně zkomprimován.");
+                Log.Write("Text byl úspěšně zkomprimován.");
                 try
                 {
-                    fileHandler.WriteToFile(config.OutputFilePath, test.CompressText);
-                    log.Write("Zkomprimovaný text byl úspěšně uložen.");
+                    FileHandler.WriteToFile(Config.OutputFilePath, test.CompressText);
+                    Log.Write("Zkomprimovaný text byl úspěšně uložen.");
                 }
                 catch 
                 {
-                    log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
+                    Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
                 }
             }
             else
             {
-                log.Write("Text se nepodařilo zkomprimovat.");
+                Log.Write("Text se nepodařilo zkomprimovat.");
             }
 
-            compressDict = test.CompressDict;
             /*
             foreach (var kvp in compressDict)
             {
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }*/
-            fileHandler.WriteDictToXml(compressDict, config.DictionaryFilePath);
+            FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
             
             /*
             Console.WriteLine($"InputFilePath: {config.InputFilePath}");
