@@ -32,11 +32,27 @@ namespace Komprese.src.FileHandling
             {
                 return File.ReadAllText(filePath);
             }
+            catch (FileNotFoundException ex)
+            {
+                // Zpracování chyby, kdy soubor není nalezen
+                Log.Write($"Soubor {filePath} nenalezen: {ex.Message}");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                // Zpracování chyby, kdy není oprávnění pro čtení souboru
+                Log.Write($"Nedostatečná oprávnění k {filePath}: {ex.Message}");
+            }
+            catch (IOException ex)
+            {
+                // Zpracování obecné chyby vstupně-výstupní operace
+                Log.Write($"Chyba při čtení souboru {filePath}: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Log.Write($"Chyba při čtení souboru {filePath}: {ex.Message}");
-                return null;
+                // Zpracování ostatních neočekávaných chyb
+                Log.Write($"Neočekávaná chyba při čtení souboru {filePath}: {ex.Message}");
             }
+            return null;
         }
 
         /// <summary>
@@ -50,9 +66,17 @@ namespace Komprese.src.FileHandling
             {
                 File.WriteAllText(filePath, content);
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Write($"Nemáte oprávnění k zápisu do {filePath}: {ex.Message}");
+            }
+            catch (NotSupportedException ex)
+            {
+                Log.Write($"Chyba: {filePath} není textový soubor: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Log.Write($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+                Log.Write($"Neočekávaná chyba při zápisu do souboru {filePath}: {ex.Message}");
             }
         }
 
@@ -77,9 +101,17 @@ namespace Komprese.src.FileHandling
                     serializer.WriteObject(fs, serializableDict);
                 }
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Write($"Nemáte oprávnění k zápisu do {filePath}: {ex.Message}");
+            }
+            catch (NotSupportedException ex)
+            {
+                Log.Write($"Chyba: {filePath} není textový soubor: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Log.Write($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+                Log.Write($"Neočekávaná chyba při zápisu do souboru {filePath}: {ex.Message}");
             }
         }
 
@@ -106,11 +138,23 @@ namespace Komprese.src.FileHandling
                     return dict;
                 }
             }
+            catch (FileNotFoundException ex)
+            {
+                Log.Write($"Soubor {filePath} nenalezen: {ex.Message}");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Write($"Nedostatečná oprávnění k {filePath}: {ex.Message}");
+            }
+            catch (IOException ex)
+            {
+                Log.Write($"Chyba při čtení souboru {filePath}: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Log.Write($"Chyba při čtení ze souboru {filePath}: {ex.Message}");
-                return new Dictionary<string, string>();
+                Log.Write($"Neočekávaná chyba při čtení souboru {filePath}: {ex.Message}");
             }
+            return null;
         }
 
     }
