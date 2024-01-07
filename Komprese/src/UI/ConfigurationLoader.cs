@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komprese.src.LogHandling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,13 +24,17 @@ namespace Komprese.src.UI
         /// <summary>
         /// Konstruktor třídy ConfigurationLoader.
         /// </summary>
-        public ConfigurationLoader(){ }
+        public ConfigurationLoader(string path)
+        {
+            filePath = path;
+        }
 
         /// <summary>
         /// Načte konfiguraci ze souboru XML a nastaví odpovídající vlastnosti.
         /// </summary>
         public void LoadConfiguration()
         {
+            LogHandler Log = Program.Log;
             try
             {
                 XDocument doc = XDocument.Load(filePath);
@@ -37,11 +42,10 @@ namespace Komprese.src.UI
                 OutputFilePath = GetValueFromXml(doc, "OutputFilePath");
                 LogFilePath = GetValueFromXml(doc, "LogFilePath");
                 DictionaryFilePath = GetValueFromXml(doc, "DictionaryFilePath");
-                //Console.WriteLine("Konfigurace načtena úspěšně.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba při načítání konfigurace: {ex.Message}");
+                Log.Write($"Chyba při načítání konfigurace: {ex.Message}");
             }
         }
 

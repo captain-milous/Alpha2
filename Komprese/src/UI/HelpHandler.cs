@@ -22,6 +22,7 @@ namespace Komprese.src.UI
             { 
                 Console.WriteLine(command.ToString() + ": " + description[command].ToString());
             }
+            Console.WriteLine();
         }
     }
 }

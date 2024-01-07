@@ -7,32 +7,29 @@ namespace Komprese.src
 {
     public class Program
     {
-        public static ConfigurationLoader Config;
+        public static string Oddelovac = "\n----------------------------------------------------------------------------------\n";
         public static LogHandler Log = new LogHandler("log\\EmergencyLog.txt");
-        public static FileHandler FileHandler = new FileHandler();
-        public static Dictionary<string, string> CompressDict = new Dictionary<string, string>();
+        public static ConfigurationLoader Config;
 
         static void Main(string[] args)
         {
             bool run = true;
-            string text = string.Empty;
 
-            Console.WriteLine(MainMenuUI.Oddelovac);
+            Console.WriteLine(Oddelovac);
             Console.WriteLine("Vítejte v programu Alpha! (Generátor rozvrhů)");
             Console.WriteLine("Autor: Miloš Tesař C4b");
-            Console.WriteLine(MainMenuUI.Oddelovac);
+            Console.WriteLine(Oddelovac);
 
             #region Load Configuration
             try
             {
-                Config = new ConfigurationLoader();
+                Config = new ConfigurationLoader("config\\config.xml");
                 Config.LoadConfiguration();
                 Log = new LogHandler(Config.LogFilePath);
-                CompressDict = FileHandler.ReadDictFromXml(Config.DictionaryFilePath);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba: {ex.Message}");
+                Console.WriteLine($"Chyba při načítání: {ex.Message}");
                 Log.Write($"Chyba: {ex.Message}");
                 run = false;
             }
@@ -47,25 +44,7 @@ namespace Komprese.src
              * 
              */
             
-            Compression test = new Compression(text);
-            //Console.WriteLine(test.CompressText);
-            if (!string.IsNullOrEmpty(test.CompressText))
-            {
-                Log.Write("Text byl úspěšně zkomprimován.");
-                try
-                {
-                    FileHandler.WriteToFile(Config.OutputFilePath, test.CompressText);
-                    Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                }
-                catch 
-                {
-                    Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
-                }
-            }
-            else
-            {
-                Log.Write("Text se nepodařilo zkomprimovat.");
-            }
+            
 
             /*
             foreach (var kvp in compressDict)
