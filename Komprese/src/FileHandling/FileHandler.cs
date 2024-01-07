@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komprese.src.LogHandling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,6 +15,7 @@ namespace Komprese.src.FileHandling
     /// </summary>
     public class FileHandler
     {
+        private static LogHandler Log = Program.Log;
         /// <summary>
         /// Konstruktor třídy FileHandler.
         /// </summary>
@@ -32,7 +34,7 @@ namespace Komprese.src.FileHandling
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba při čtení souboru {filePath}: {ex.Message}");
+                Log.Write($"Chyba při čtení souboru {filePath}: {ex.Message}");
                 return null;
             }
         }
@@ -50,7 +52,7 @@ namespace Komprese.src.FileHandling
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+                Log.Write($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
             }
         }
 
@@ -77,7 +79,7 @@ namespace Komprese.src.FileHandling
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
+                Log.Write($"Chyba při zápisu do souboru {filePath}: {ex.Message}");
             }
         }
 
@@ -106,7 +108,7 @@ namespace Komprese.src.FileHandling
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Chyba při čtení ze souboru {filePath}: {ex.Message}");
+                Log.Write($"Chyba při čtení ze souboru {filePath}: {ex.Message}");
                 return new Dictionary<string, string>();
             }
         }

@@ -1,0 +1,6 @@
+<Configuration>
+  <InputFilePath>data\input.txt</InputFilePath>
+  <OutputFilePath>data\output.txt</OutputFilePath>
+  <LogFilePath>log\LogFile.txt</LogFilePath>
+  <DictionaryFilePath>data\dictionary.xml</DictionaryFilePath>
+</Configuration>

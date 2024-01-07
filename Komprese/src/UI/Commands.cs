@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace Komprese.src.UI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum Commands
     {
+        def,
         help,
         compress,
         decompress,
+        input,
+        output,
         exit
-
     }
 }

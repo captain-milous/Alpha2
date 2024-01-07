@@ -13,7 +13,7 @@ namespace Komprese.src.UI
     /// </summary>
     public class ConfigurationLoader
     {
-        private readonly string filePath = "_config\\config.xml";
+        private readonly string filePath = "config\\config.xml";
 
         public string InputFilePath { get; private set; }
         public string OutputFilePath { get; private set; }

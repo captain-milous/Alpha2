@@ -25,3 +25,5 @@
 03.01.2024 21:47:33: Zkomprimovaný text byl úspěšně uložen.
 03.01.2024 22:16:26: Text byl úspěšně zkomprimován.
 03.01.2024 22:16:26: Zkomprimovaný text byl úspěšně uložen.
+07.01.2024 17:44:53: Chyba při čtení souboru _data\input.txt: Could not find a part of the path 'C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\_data\input.txt'.
+07.01.2024 17:46:02: Chyba při čtení souboru _data\input.txt: Could not find a part of the path 'C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\_data\input.txt'.

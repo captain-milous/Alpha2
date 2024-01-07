@@ -8,7 +8,7 @@ namespace Komprese.src
     public class Program
     {
         public static ConfigurationLoader Config;
-        public static LogHandler Log;
+        public static LogHandler Log = new LogHandler("log\\EmergencyLog.txt");
         public static FileHandler FileHandler = new FileHandler();
         public static Dictionary<string, string> CompressDict = new Dictionary<string, string>();
 
@@ -29,7 +29,6 @@ namespace Komprese.src
                 Config.LoadConfiguration();
                 Log = new LogHandler(Config.LogFilePath);
                 CompressDict = FileHandler.ReadDictFromXml(Config.DictionaryFilePath);
-                text = FileHandler.ReadFromFile(Config.InputFilePath);
             }
             catch (Exception ex)
             {
