@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Komprese.src.UI
 {
     /// <summary>
-    /// 
+    /// Použitené příkazy v tomto programu
     /// </summary>
     public enum Commands
     {
