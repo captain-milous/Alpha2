@@ -11,14 +11,34 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Komprese.src.UI
 {
+    /// <summary>
+    /// Třída MainMenuUI obsahuje uživatelské rozhraní a interakce s uživatelem.
+    /// </summary>
     public static class MainMenuUI
     {
+        /// <summary>
+        /// Výchozí uživatelské jméno, použité v případě, kdy uživatel nezadá žádné jméno.
+        /// </summary>
         static string UserName = "Anonymous";
+        /// <summary>
+        /// Instance třídy LogHandler pro zpracování a zápis logů aplikace.
+        /// </summary>
         static LogHandler Log = Program.Log;
+        /// <summary>
+        /// Instance třídy FileHandler pro manipulaci se soubory.
+        /// </summary>
         static FileHandler FileHandler = new FileHandler();
-        static ConfigurationLoader Config = Program.Config; 
-
+        /// <summary>
+        /// Instance třídy ConfigurationLoader pro načítání konfiguračních informací.
+        /// </summary>
+        static ConfigurationLoader Config = Program.Config;
+        /// <summary>
+        /// Slovník obsahující kompresní zkratky.
+        /// </summary>
         public static Dictionary<string, string> CompressDict = new Dictionary<string, string>();
+        /// <summary>
+        /// Slovník obsahující zkratky pro příkazy.
+        /// </summary>
         static Dictionary<string, string> Zkratky = new Dictionary<string, string>() 
         {
             { "?", "help" },
@@ -32,9 +52,9 @@ namespace Komprese.src.UI
             { "out" , "output" },
         };
         /// <summary>
-        /// 
+        /// Spustí hlavní uživatelské rozhraní.
         /// </summary>
-        /// <param name="run"></param>
+        /// <param name="run">Určuje, zda má program běžet nebo ukončit.</param>
         public static void Start(bool run)
         {
             if (run)
@@ -61,6 +81,7 @@ namespace Komprese.src.UI
                 }
                 while (run)
                 {
+                    #region Input from user
                     string lineStartText = UserName + ": " + Config.InputFilePath + "> ";
                     Console.Write(lineStartText);
                     string input = Console.ReadLine().ToLower();
@@ -82,6 +103,7 @@ namespace Komprese.src.UI
                     {
                         Log.Write($"{UserName} použil neexistující příkaz.");
                     }
+                    #endregion
                     switch (userCommand)
                     {
                         case Commands.help:
@@ -96,43 +118,64 @@ namespace Komprese.src.UI
                             }
                             else
                             {
-                                bool runCompression = true;
-                                if (File.Exists(Config.InputFilePath))
+                                Compression compressFile = new Compression(text);
+                                if (!string.IsNullOrEmpty(compressFile.CompressText))
                                 {
-
-                                }
-
-                                if (runCompression)
-                                {
-                                    Compression compressFile = new Compression(text);
-                                    if (!string.IsNullOrEmpty(compressFile.CompressText))
-                                    {
-                                        try
-                                        {
-                                            FileHandler.WriteToFile(Config.OutputFilePath, compressFile.CompressText);
-                                            Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                                            Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
-                                        }
-                                        catch
-                                        {
-                                            Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
-                                    }
                                     try
                                     {
-                                        FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
+                                        FileHandler.WriteToFile(Config.OutputFilePath, compressFile.CompressText);
+                                        Log.Write("Zkomprimovaný text byl úspěšně uložen.");
+                                        Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
                                     }
-                                    catch { }
+                                    catch
+                                    {
+                                        Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
+                                    }
+                                }
+                                else
+                                {
+                                    Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
+                                }
+                                try
+                                {
+                                    FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
+                                }
+                                catch 
+                                {
+                                    Log.Write("Nastala nečekaná chyba.");
                                 }
                             }
                             Console.WriteLine();
                             break;
                         case Commands.decompress:
-
+                            text = string.Empty;
+                            if (!File.Exists(Config.InputFilePath))
+                            {
+                                Console.WriteLine($"Soubor na cestě {Config.InputFilePath} neexistuje.");
+                                Log.Write($"Soubor na cestě {Config.InputFilePath} neexistuje.");
+                            }
+                            else
+                            {
+                                Compression decompressFile = new Compression(text);
+                                if (!string.IsNullOrEmpty(decompressFile.CompressText))
+                                {
+                                    try
+                                    {
+                                        FileHandler.WriteToFile(Config.OutputFilePath, decompressFile.RawText);
+                                        Log.Write("Zkomprimovaný text byl úspěšně uložen.");
+                                        Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
+                                    }
+                                    catch
+                                    {
+                                        Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
+                                    }
+                                }
+                                else
+                                {
+                                    Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
+                                }
+                            }
+                            Console.WriteLine();
                             break;
                         case Commands.input:
                             Console.WriteLine($"Cesta k souboru, ze kterého chcete načítat: {Config.InputFilePath}");
@@ -217,7 +260,7 @@ namespace Komprese.src.UI
                             run = false;
                             break;
                         default:
-                            Console.WriteLine("Napište help pro nápovědu.");
+                            Console.WriteLine("Napište 'help' pro nápovědu.");
                             break;
                     }
                 }

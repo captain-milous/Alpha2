@@ -5,12 +5,29 @@ using Komprese.src.UI;
 
 namespace Komprese.src
 {
+    /// <summary>
+    /// Třída Program slouží jako vstupní bod aplikace pro generátor rozvrhů.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Oddělovač pro vizuální oddělení částí programu.
+        /// </summary>
         public static string Oddelovac = "\n----------------------------------------------------------------------------------\n";
+        /// <summary>
+        /// Instance pro zpracování a zápis logů.
+        /// </summary>
         public static LogHandler Log = new LogHandler();
-        public static ConfigurationLoader Config;
 
+        /// <summary>
+        /// Instance pro načítání konfiguračního souboru.
+        /// </summary>
+        public static ConfigurationLoader Config =  new ConfigurationLoader();
+
+        // <summary>
+        /// Vstupní bod programu.
+        /// </summary>
+        /// <param name="args">Argumenty předané při spuštění programu.</param>
         static void Main(string[] args)
         {
             bool run = true;
@@ -39,22 +56,6 @@ namespace Komprese.src
 
             Console.WriteLine("\nKonec programu");
             Console.WriteLine(Oddelovac);
-
-            /*  
-             * Empty Dict:
-             * 
-             * Dictionary<string, string> dict = new Dictionary<string, string>();
-             * fileHandler.WriteDictToXml(dict, config.DictionaryFilePath);
-             * 
-             */
-
-
-            /*
-            Console.WriteLine($"InputFilePath: {config.InputFilePath}");
-            Console.WriteLine($"OutputFilePath: {config.OutputFilePath}");
-            Console.WriteLine($"LogFilePath: {config.LogFilePath}");
-            Console.WriteLine($"Dictionary: {config.DictionaryFilePath}");
-            */
         }
     }
 }

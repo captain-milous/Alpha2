@@ -22,6 +22,14 @@ namespace Komprese.src.UI
         public string DictionaryFilePath { get; private set; }
 
         /// <summary>
+        /// Defaultní konstruktor třídy ConfigurationLoader.
+        /// </summary>
+        public ConfigurationLoader()
+        {
+            filePath = filePath;
+        }
+
+        /// <summary>
         /// Konstruktor třídy ConfigurationLoader.
         /// </summary>
         public ConfigurationLoader(string path)
