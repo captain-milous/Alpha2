@@ -1,4 +1,5 @@
 ﻿using Komprese.src.LogHandling;
+using Komprese.src.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,11 +60,11 @@ namespace Komprese.src.CompressHandling
                 foreach (var word in words)
                 {
                     string key = word.Length >= 3 ? word.Substring(0, 3) : word;
-                    if (!Program.CompressDict.ContainsValue(word))
+                    if (!MainMenuUI.CompressDict.ContainsValue(word))
                     {
-                        if (!Program.CompressDict.ContainsKey(key))
+                        if (!MainMenuUI.CompressDict.ContainsKey(key))
                         {
-                            Program.CompressDict.Add(key, word);
+                            MainMenuUI.CompressDict.Add(key, word);
                         }
                         else
                         {
@@ -73,9 +74,9 @@ namespace Komprese.src.CompressHandling
                             {
                                 newKey = $"{key}{index}";
                                 index++;
-                            } while (Program.CompressDict.ContainsKey(newKey));
+                            } while (MainMenuUI.CompressDict.ContainsKey(newKey));
 
-                            Program.CompressDict.Add(newKey, word);
+                            MainMenuUI.CompressDict.Add(newKey, word);
                             key = newKey;
                         }
                     }
@@ -114,15 +115,15 @@ namespace Komprese.src.CompressHandling
                 string[] keys = sentence.Split(' ');
                 foreach (var key in keys)
                 {
-                    if (Program.CompressDict.ContainsKey(key))
+                    if (MainMenuUI.CompressDict.ContainsKey(key))
                     {
                         if (string.IsNullOrEmpty(output))
                         {
-                            output += Program.CompressDict[key];
+                            output += MainMenuUI.CompressDict[key];
                         }
                         else
                         {
-                            output += " " + Program.CompressDict[key];
+                            output += " " + MainMenuUI.CompressDict[key];
                         }
                     }
                     else
