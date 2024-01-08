@@ -8,7 +8,7 @@ namespace Komprese.src
     public class Program
     {
         public static string Oddelovac = "\n----------------------------------------------------------------------------------\n";
-        public static LogHandler Log = new LogHandler("log\\EmergencyLog.txt");
+        public static LogHandler Log = new LogHandler();
         public static ConfigurationLoader Config;
 
         static void Main(string[] args)
@@ -36,6 +36,10 @@ namespace Komprese.src
             #endregion
 
             MainMenuUI.Start(run);
+
+            Console.WriteLine("\nKonec programu");
+            Console.WriteLine(Oddelovac);
+
             /*  
              * Empty Dict:
              * 
@@ -43,16 +47,8 @@ namespace Komprese.src
              * fileHandler.WriteDictToXml(dict, config.DictionaryFilePath);
              * 
              */
-            
-            
 
-            /*
-            foreach (var kvp in compressDict)
-            {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-            }*/
-            FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
-            
+
             /*
             Console.WriteLine($"InputFilePath: {config.InputFilePath}");
             Console.WriteLine($"OutputFilePath: {config.OutputFilePath}");
