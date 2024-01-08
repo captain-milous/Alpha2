@@ -13,7 +13,13 @@ namespace Komprese.src.LogHandling
     public class LogHandler
     {
         private FileHandler fileHandler = new FileHandler();
+        private string defaultPath = "log\\EmergencyLog.txt";
         public string LogFilePath { get; private set; }
+
+        public LogHandler() 
+        { 
+            LogFilePath = defaultPath;
+        }
 
         /// <summary>
         /// Konstruktor třídy LogHandler.

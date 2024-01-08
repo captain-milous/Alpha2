@@ -15,7 +15,7 @@ namespace Komprese.src.FileHandling
     /// </summary>
     public class FileHandler
     {
-        private static LogHandler Log = Program.Log;
+        static LogHandler Log = new LogHandler("log\\ErrorLog.txt");
         /// <summary>
         /// Konstruktor třídy FileHandler.
         /// </summary>
