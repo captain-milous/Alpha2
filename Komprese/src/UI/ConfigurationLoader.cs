@@ -16,8 +16,8 @@ namespace Komprese.src.UI
     {
         private readonly string filePath = "config\\config.xml";
 
-        public string InputFilePath { get; private set; }
-        public string OutputFilePath { get; private set; }
+        public string InputFilePath { get; set; }
+        public string OutputFilePath { get; set; }
         public string LogFilePath { get; private set; }
         public string DictionaryFilePath { get; private set; }
 

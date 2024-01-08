@@ -13,11 +13,10 @@ namespace Komprese.src.UI
 {
     public static class MainMenuUI
     {
-        static string Oddelovac = Program.Oddelovac;
         static string UserName = "Anonymous";
         static LogHandler Log = Program.Log;
-        static ConfigurationLoader Config = Program.Config; 
         static FileHandler FileHandler = new FileHandler();
+        static ConfigurationLoader Config = Program.Config; 
 
         public static Dictionary<string, string> CompressDict = new Dictionary<string, string>();
         static Dictionary<string, string> Zkratky = new Dictionary<string, string>() 
@@ -40,8 +39,6 @@ namespace Komprese.src.UI
         {
             if (run)
             {
-                string InputFile = Config.InputFilePath;
-                string OutputFile = Config.OutputFilePath;
                 try
                 {
                     CompressDict = FileHandler.ReadDictFromXml(Config.DictionaryFilePath);
@@ -64,7 +61,7 @@ namespace Komprese.src.UI
                 }
                 while (run)
                 {
-                    string lineStartText = UserName + ": " + InputFile + "> ";
+                    string lineStartText = UserName + ": " + Config.InputFilePath + "> ";
                     Console.Write(lineStartText);
                     string input = Console.ReadLine().ToLower();
                     Console.WriteLine();
@@ -92,15 +89,15 @@ namespace Komprese.src.UI
                             break;
                         case Commands.compress:
                             string text = string.Empty;
-                            if (!File.Exists(InputFile))
+                            if (!File.Exists(Config.InputFilePath))
                             {
-                                Console.WriteLine($"Soubor na cestě {InputFile} neexistuje.");
-                                Log.Write($"Soubor na cestě {InputFile} neexistuje.");
+                                Console.WriteLine($"Soubor na cestě {Config.InputFilePath} neexistuje.");
+                                Log.Write($"Soubor na cestě {Config.InputFilePath} neexistuje.");
                             }
                             else
                             {
                                 bool runCompression = true;
-                                if (File.Exists(OutputFile))
+                                if (File.Exists(Config.InputFilePath))
                                 {
 
                                 }
@@ -108,39 +105,37 @@ namespace Komprese.src.UI
                                 if (runCompression)
                                 {
                                     Compression compressFile = new Compression(text);
+                                    if (!string.IsNullOrEmpty(compressFile.CompressText))
+                                    {
+                                        try
+                                        {
+                                            FileHandler.WriteToFile(Config.OutputFilePath, compressFile.CompressText);
+                                            Log.Write("Zkomprimovaný text byl úspěšně uložen.");
+                                            Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
+                                        }
+                                        catch
+                                        {
+                                            Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
+                                    }
+                                    try
+                                    {
+                                        FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
+                                    }
+                                    catch { }
                                 }
                             }
-
-
-                            Compression test = new Compression(text);
-                            //Console.WriteLine(test.CompressText);
-                            if (!string.IsNullOrEmpty(test.CompressText))
-                            {
-                                Log.Write("Text byl úspěšně zkomprimován.");
-                                try
-                                {
-                                    FileHandler.WriteToFile(OutputFile, test.CompressText);
-                                    Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                                }
-                                catch
-                                {
-                                    Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
-                                }
-                            }
-                            else
-                            {
-                                Log.Write("Text se nepodařilo zkomprimovat.");
-                            }
-                            try
-                            {
-                                FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
-                            } catch { }
+                            Console.WriteLine();
                             break;
                         case Commands.decompress:
 
                             break;
                         case Commands.input:
-                            Console.WriteLine($"Cesta k souboru, ze kterého chcete načítat: {InputFile}");
+                            Console.WriteLine($"Cesta k souboru, ze kterého chcete načítat: {Config.InputFilePath}");
                             Console.Write("Napište novou cestu k souboru: ");
                             string newInputPath = Console.ReadLine();
 
@@ -150,8 +145,8 @@ namespace Komprese.src.UI
                                 {
                                     if (File.Exists(newInputPath))
                                     {
-                                        Log.Write($"{UserName} změnil InputFilePath z {InputFile} na {newInputPath}.");
-                                        InputFile = newInputPath;
+                                        Log.Write($"{UserName} změnil InputFilePath z {Config.InputFilePath} na {newInputPath}.");
+                                        Config.InputFilePath = newInputPath;
                                     }
                                     else
                                     {
@@ -159,14 +154,14 @@ namespace Komprese.src.UI
                                         input = Console.ReadLine().ToLower();
                                         if(input == "ano" || input == "yes" || input == "y" || input == "a")
                                         {
-                                            Log.Write($"{UserName} změnil InputFilePath z {InputFile} na {newInputPath}.");
-                                            InputFile = newInputPath;
+                                            Log.Write($"{UserName} změnil InputFilePath z {Config.InputFilePath} na {newInputPath}.");
+                                            Config.InputFilePath = newInputPath;
                                             try
                                             {
                                                 // Vytvoření prázdného souboru
-                                                using (FileStream fs = File.Create(InputFile))
+                                                using (FileStream fs = File.Create(Config.InputFilePath))
                                                 {
-                                                    Console.WriteLine($"{InputFile} byl úspěšně vytvořen!");
+                                                    Console.WriteLine($"{Config.InputFilePath} byl úspěšně vytvořen!");
                                                 }
                                             }
                                             catch (Exception ex)
@@ -188,7 +183,7 @@ namespace Komprese.src.UI
                             Console.WriteLine();
                             break;
                         case Commands.output:
-                            Console.WriteLine($"Cesta k souboru, do kterého chcete komprimovat/dekomprimovat: {OutputFile}");
+                            Console.WriteLine($"Cesta k souboru, do kterého chcete komprimovat/dekomprimovat: {Config.OutputFilePath}");
                             Console.Write("Napište novou cestu k souboru: ");
                             string newOutputPath = Console.ReadLine();
 
@@ -198,8 +193,8 @@ namespace Komprese.src.UI
                                 {
                                     if (!File.Exists(newOutputPath))
                                     {
-                                        Log.Write($"{UserName} změnil OutputFilePath z {OutputFile} na {newOutputPath}.");
-                                        InputFile = newOutputPath;
+                                        Log.Write($"{UserName} změnil OutputFilePath z {Config.OutputFilePath} na {newOutputPath}.");
+                                        Config.OutputFilePath = newOutputPath;
                                     }
                                     else
                                     {
