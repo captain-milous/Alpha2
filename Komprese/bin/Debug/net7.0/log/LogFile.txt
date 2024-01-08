@@ -41,3 +41,11 @@
 08.01.2024 8:59:54: Soubor na cestě data\newFile.txt byl vytvořen uživatelem Milos.
 08.01.2024 10:24:47: nigga se přihlásil.
 08.01.2024 10:25:10: nigga použil neexistující příkaz.
+08.01.2024 19:04:42: Ondrej se přihlásil.
+08.01.2024 19:05:01: Ondrej použil neexistující příkaz.
+08.01.2024 19:05:45: V textovém souboru data\input.txt není žádný text.
+08.01.2024 19:06:07: V textovém souboru data\input.txt není žádný text.
+08.01.2024 19:09:49: Anonymous se přihlásil.
+08.01.2024 19:10:53: Anonymous změnil InputFilePath z data\input.txt na data\output.txt.
+08.01.2024 19:11:32: Anonymous použil neexistující příkaz.
+08.01.2024 19:11:46: Anonymous ukončil program
