@@ -16,6 +16,9 @@ namespace Komprese.src.LogHandling
         private string defaultPath = "log\\EmergencyLog.txt";
         public string LogFilePath { get; private set; }
 
+        /// <summary>
+        /// Konstruktor třídy LogHandler s defaultní hodnotou.
+        /// </summary>
         public LogHandler() 
         { 
             LogFilePath = defaultPath;
