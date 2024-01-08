@@ -32,11 +32,16 @@ namespace Komprese.src.UI
             { "in" , "input" },
             { "out" , "output" },
         };
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="run"></param>
         public static void Start(bool run)
         {
             if (run)
             {
+                string InputFile = Config.InputFilePath;
+                string OutputFile = Config.OutputFilePath;
                 try
                 {
                     CompressDict = FileHandler.ReadDictFromXml(Config.DictionaryFilePath);
@@ -57,10 +62,9 @@ namespace Komprese.src.UI
                     }
                     Log.Write($"{UserName} se přihlásil.");
                 }
-                //text = FileHandler.ReadFromFile(Config.InputFilePath);
                 while (run)
                 {
-                    string lineStartText = UserName + ": " + Config.InputFilePath + "> ";
+                    string lineStartText = UserName + ": " + InputFile + "> ";
                     Console.Write(lineStartText);
                     string input = Console.ReadLine().ToLower();
                     Console.WriteLine();
@@ -88,6 +92,26 @@ namespace Komprese.src.UI
                             break;
                         case Commands.compress:
                             string text = string.Empty;
+                            if (!File.Exists(InputFile))
+                            {
+                                Console.WriteLine($"Soubor na cestě {InputFile} neexistuje.");
+                                Log.Write($"Soubor na cestě {InputFile} neexistuje.");
+                            }
+                            else
+                            {
+                                bool runCompression = true;
+                                if (File.Exists(OutputFile))
+                                {
+
+                                }
+
+                                if (runCompression)
+                                {
+                                    Compression compressFile = new Compression(text);
+                                }
+                            }
+
+
                             Compression test = new Compression(text);
                             //Console.WriteLine(test.CompressText);
                             if (!string.IsNullOrEmpty(test.CompressText))
@@ -95,7 +119,7 @@ namespace Komprese.src.UI
                                 Log.Write("Text byl úspěšně zkomprimován.");
                                 try
                                 {
-                                    FileHandler.WriteToFile(Config.OutputFilePath, test.CompressText);
+                                    FileHandler.WriteToFile(OutputFile, test.CompressText);
                                     Log.Write("Zkomprimovaný text byl úspěšně uložen.");
                                 }
                                 catch
@@ -107,14 +131,16 @@ namespace Komprese.src.UI
                             {
                                 Log.Write("Text se nepodařilo zkomprimovat.");
                             }
-
-                            FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
+                            try
+                            {
+                                FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
+                            } catch { }
                             break;
                         case Commands.decompress:
 
                             break;
                         case Commands.input:
-                            Console.WriteLine($"\nCesta k souboru: {Config.InputFilePath}");
+                            Console.WriteLine($"Cesta k souboru, ze kterého chcete načítat: {InputFile}");
                             Console.Write("Napište novou cestu k souboru: ");
                             string newInputPath = Console.ReadLine();
 
@@ -122,7 +148,33 @@ namespace Komprese.src.UI
                             {
                                 if(newInputPath.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
                                 {
-
+                                    if (File.Exists(newInputPath))
+                                    {
+                                        Log.Write($"{UserName} změnil InputFilePath z {InputFile} na {newInputPath}.");
+                                        InputFile = newInputPath;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Soubor, který jste zadali neexistuje. Chcete ho vytvořit?");
+                                        input = Console.ReadLine().ToLower();
+                                        if(input == "ano" || input == "yes" || input == "y" || input == "a")
+                                        {
+                                            Log.Write($"{UserName} změnil InputFilePath z {InputFile} na {newInputPath}.");
+                                            InputFile = newInputPath;
+                                            try
+                                            {
+                                                // Vytvoření prázdného souboru
+                                                using (FileStream fs = File.Create(InputFile))
+                                                {
+                                                    Console.WriteLine($"{InputFile} byl úspěšně vytvořen!");
+                                                }
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Console.WriteLine($"Nastala chyba při vytváření souboru: {ex.Message}");
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -133,9 +185,37 @@ namespace Komprese.src.UI
                             {
                                 Console.WriteLine("Cesta k souboru nesmí být prázdná!\n");
                             }
+                            Console.WriteLine();
                             break;
                         case Commands.output:
-                            
+                            Console.WriteLine($"Cesta k souboru, do kterého chcete komprimovat/dekomprimovat: {OutputFile}");
+                            Console.Write("Napište novou cestu k souboru: ");
+                            string newOutputPath = Console.ReadLine();
+
+                            if (!string.IsNullOrEmpty(newOutputPath))
+                            {
+                                if (newOutputPath.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    if (!File.Exists(newOutputPath))
+                                    {
+                                        Log.Write($"{UserName} změnil OutputFilePath z {OutputFile} na {newOutputPath}.");
+                                        InputFile = newOutputPath;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Soubor, který jste zadali již existuje!");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Musíte zadat textový soubor!\n");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Cesta k souboru nesmí být prázdná!\n");
+                            }
+                            Console.WriteLine();
                             break;
                         case Commands.exit:
                             Log.Write($"{UserName} ukončil program");

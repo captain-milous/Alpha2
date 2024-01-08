@@ -34,3 +34,8 @@
 08.01.2024 8:33:15: Milos ukončil program
 08.01.2024 8:35:56: Milos se přihlásil.
 08.01.2024 8:36:12: Milos ukončil program
+08.01.2024 8:51:33: Milos se přihlásil.
+08.01.2024 8:54:13: Milos se přihlásil.
+08.01.2024 8:59:33: Milos se přihlásil.
+08.01.2024 8:59:54: Milos změnil InputFilePath z data\input.txt na data\newFile.txt.
+08.01.2024 8:59:54: Soubor na cestě data\newFile.txt byl vytvořen uživatelem Milos.
