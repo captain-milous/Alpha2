@@ -11,24 +11,32 @@ using System.Threading.Tasks;
 namespace Komprese.src.CompressHandling
 {
     /// <summary>
-    /// 
+    /// Třída Compression poskytuje metody pro kompresi a dekompresi textu pomocí jednoduchého slovníkového kódování.
     /// </summary>
     public class Compression
     {
-        private char[] interpunkce = { '.', '!', '?', ',', ';', ':', '(', ')', '[', ']', '{', '}', '-', '—', '–', '„', '“', '”', '‘', '’' };
+        /// <summary>
+        /// Vstupní text před kompresí/ Text po dekompresi.
+        /// </summary>
         public string RawText { get; private set; }
+        /// <summary>
+        /// Kompresovaný text.
+        /// </summary>
         public string CompressText { get; private set;}
-
+        /// <summary>
+        /// Inicializuje novou instanci třídy Compression pro kompresi vstupního textu.
+        /// </summary>
+        /// <param name="text">Vstupní text k zpracování.</param>
         public Compression(string text)
         {
             RawText = text;
             CompressText = Compress(text);
         }
         /// <summary>
-        /// 
+        /// Inicializuje novou instanci třídy Compression pro kompresi nebo dekompresi vstupního textu.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="decompress"></param>
+        /// <param name="text">Vstupní text k zpracování.</param>
+        /// <param name="decompress">Určuje, zda má být provedena dekompresia (true) nebo komprese (false).</param>
         public Compression(string text, bool decompress)
         {
             if (decompress)
@@ -42,7 +50,11 @@ namespace Komprese.src.CompressHandling
                 CompressText = Compress(text);
             }
         }
-
+        /// <summary>
+        /// Kompresuje vstupní text pomocí jednoduchého slovníkového kódování.
+        /// </summary>
+        /// <param name="text">Vstupní text k zpracování.</param>
+        /// <returns>Kompresovaný text.</returns>
         private string Compress(string text)
         {
             string output = string.Empty;
@@ -95,10 +107,10 @@ namespace Komprese.src.CompressHandling
         }
 
         /// <summary>
-        /// 
+        /// Dekompresuje komprimovaný text pomocí jednoduchého slovníkového kódování.
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="text">Kompresovaný text k zpracování.</param>
+        /// <returns>Dekomprimovaný text.</returns>
         private string Decompress(string text)
         {
             string output = string.Empty;
