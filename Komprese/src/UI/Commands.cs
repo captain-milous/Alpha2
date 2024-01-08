@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Komprese.src.UI
 {
     /// <summary>
-    /// Použitené příkazy v tomto programu
+    /// Enumerace představující seznam povolených příkazů pro kompresi a dekompresi textového souboru.
     /// </summary>
     public enum Commands
     {

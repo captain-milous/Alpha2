@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Komprese.src.UI
 {
+    /// <summary>
+    /// Statická třída obsahující metody pro zobrazení nápovědy k jednotlivým příkazům.
+    /// </summary>
     public static class HelpHandler
     {
+        /// <summary>
+        /// Slovník obsahující popisy jednotlivých příkazů pro zobrazení nápovědy.
+        /// </summary>
         private static Dictionary<Commands, string> description = new Dictionary<Commands, string>() 
         {
             //{ Commands.help, "Zobrazí seznam možných komandů." },
@@ -17,6 +23,9 @@ namespace Komprese.src.UI
             { Commands.decompress, "Dekomprimuje soubor, který byl zadán v konfiguračním souboru jako InputFilePath do souboru OutputFilePath" },
             { Commands.exit, "Ukončí program" }
         };
+        /// <summary>
+        /// Zobrazí nápovědu obsahující popisy jednotlivých příkazů.
+        /// </summary>
         public static void Start()
         {
             Console.WriteLine("Příkazy, které můžete použít:\n");
