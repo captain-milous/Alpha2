@@ -10,7 +10,9 @@ namespace Komprese.src.UI
     {
         private static Dictionary<Commands, string> description = new Dictionary<Commands, string>() 
         {
-            { Commands.help, "Zobrazí seznam možných komandů." },
+            //{ Commands.help, "Zobrazí seznam možných komandů." },
+            { Commands.input, "Změna cesty k souboru, který chcete kompresovat/dekomresovat."},
+            { Commands.output, "Změna cesty k souboru, do kterého chcete provést kompresy/dekomresy."},
             { Commands.compress, "Komprimuje soubor, který byl zadán v konfiguračním souboru jako InputFilePath do souboru OutputFilePath" },
             { Commands.decompress, "Dekomprimuje soubor, který byl zadán v konfiguračním souboru jako InputFilePath do souboru OutputFilePath" },
             { Commands.exit, "Ukončí program" }
@@ -20,7 +22,7 @@ namespace Komprese.src.UI
             Console.WriteLine("Příkazy, které můžete použít:\n");
             foreach (Commands command in description.Keys) 
             { 
-                Console.WriteLine(command.ToString() + ": " + description[command].ToString());
+                Console.WriteLine("   - " + command.ToString() + ": " + description[command].ToString());
             }
             Console.WriteLine();
         }
