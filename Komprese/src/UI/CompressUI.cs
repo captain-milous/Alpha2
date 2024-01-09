@@ -29,6 +29,10 @@ namespace Komprese.src.UI
         /// </summary>
         static Dictionary<string, string> CompressDict = MainMenuUI.CompressDict;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="UserName"></param>
         public static void StartCompression(string UserName)
         {
             string text = string.Empty;
@@ -87,6 +91,10 @@ namespace Komprese.src.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="UserName"></param>
         public static void StartDecompression(string UserName) 
         {
             string text = string.Empty;
@@ -97,14 +105,32 @@ namespace Komprese.src.UI
             }
             else
             {
-                Compression decompressFile = new Compression(text);
+                try
+                {
+                    text = FileHandler.ReadFromFile(Config.InputFilePath);
+                    Console.WriteLine(text);
+                    Console.WriteLine($"Text byl načten z {Config.InputFilePath}.");
+                }
+                catch
+                {
+                    text = string.Empty;
+                    Console.WriteLine($"Text se nepodařilo načíst {Config.InputFilePath}.");
+                    Log.Write($"Text se nepodařilo načíst {Config.InputFilePath}.");
+                }
+                Compression decompressFile = new Compression(text, true);
                 if (!string.IsNullOrEmpty(decompressFile.CompressText))
                 {
+                    Console.WriteLine($"Text se úspěšně dekompimoval.");
+                    Log.Write($"{UserName} úspěšně dekompimoval text: {Config.InputFilePath}.");
+                    if (!File.Exists(Config.OutputFilePath))
+                    {
+                        File.Create(Config.OutputFilePath);
+                    }
                     try
                     {
                         FileHandler.WriteToFile(Config.OutputFilePath, decompressFile.RawText);
-                        Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                        Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
+                        Log.Write("Dekomprimovaný text byl úspěšně uložen.");
+                        Console.WriteLine("Dekomprimovaný text byl úspěšně uložen.");
                     }
                     catch
                     {
