@@ -114,33 +114,7 @@ namespace Komprese.src.UI
                             Console.WriteLine();
                             break;
                         case Commands.decompress:
-                            string text = string.Empty;
-                            if (!File.Exists(Config.InputFilePath))
-                            {
-                                Console.WriteLine($"Soubor na cestě {Config.InputFilePath} neexistuje.");
-                                Log.Write($"Soubor na cestě {Config.InputFilePath} neexistuje.");
-                            }
-                            else
-                            {
-                                Compression decompressFile = new Compression(text);
-                                if (!string.IsNullOrEmpty(decompressFile.CompressText))
-                                {
-                                    try
-                                    {
-                                        FileHandler.WriteToFile(Config.OutputFilePath, decompressFile.RawText);
-                                        Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                                        Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
-                                    }
-                                    catch
-                                    {
-                                        Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
-                                    }
-                                }
-                                else
-                                {
-                                    Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
-                                }
-                            }
+                            CompressUI.StartDecompression(UserName);
                             Console.WriteLine();
                             break;
                         case Commands.input:
