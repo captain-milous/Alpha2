@@ -49,3 +49,17 @@
 08.01.2024 19:10:53: Anonymous změnil InputFilePath z data\input.txt na data\output.txt.
 08.01.2024 19:11:32: Anonymous použil neexistující příkaz.
 08.01.2024 19:11:46: Anonymous ukončil program
+09.01.2024 8:42:41: Milos se přihlásil.
+09.01.2024 8:43:45: V textovém souboru data\input.txt není žádný text.
+09.01.2024 8:44:11: V textovém souboru data\input.txt není žádný text.
+09.01.2024 8:45:08: Soubor na cestě data\input.txt neexistuje.
+09.01.2024 8:45:44: Milos použil neexistující příkaz.
+09.01.2024 8:45:46: V textovém souboru data\input.txt není žádný text.
+09.01.2024 8:45:51: Milos ukončil program
+09.01.2024 8:55:49: Milos se přihlásil.
+09.01.2024 8:55:52: Milos použil neexistující příkaz.
+09.01.2024 8:56:27: Milos úspěšně zkompimoval text: data\input.txt.
+09.01.2024 9:11:25: Milos se přihlásil.
+09.01.2024 9:11:28: Milos úspěšně zkompimoval text: data\input.txt.
+09.01.2024 9:11:28: Zkomprimovaný text byl úspěšně uložen.
+09.01.2024 9:12:13: Milos ukončil program

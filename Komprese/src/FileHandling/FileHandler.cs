@@ -28,6 +28,10 @@ namespace Komprese.src.FileHandling
         /// <returns>Obsah přečteného souboru nebo null v případě chyby.</returns>
         public string ReadFromFile(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+            }
             try
             {
                 return File.ReadAllText(filePath);
@@ -62,6 +66,10 @@ namespace Komprese.src.FileHandling
         /// <param name="content">Obsah k zápisu do souboru.</param>
         public void WriteToFile(string filePath, string content)
         {
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+            }
             try
             {
                 File.WriteAllText(filePath, content);
@@ -87,6 +95,10 @@ namespace Komprese.src.FileHandling
         /// <param name="filePath">Cesta k cílovému XML souboru</param>
         public void WriteDictToXml(Dictionary<string, string> dict, string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+            }
             try
             {
                 SerializableDictionary serializableDict = new SerializableDictionary();
@@ -122,6 +134,10 @@ namespace Komprese.src.FileHandling
         /// <returns>Slovník přečtený ze souboru.</returns>
         public Dictionary<string, string> ReadDictFromXml(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+            }
             try
             {
                 DataContractSerializer serializer = new DataContractSerializer(typeof(SerializableDictionary));

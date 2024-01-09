@@ -41,4 +41,4 @@ Logika komprese a dekomprese je založena na minimalizaci opakování slov v tex
 ## Autor
 Miloš Tesař C4b
 
-[Inflectra Corporation](https://github.com/captain-milous/Alpha2)
+[GitHub](https://github.com/captain-milous/Alpha2)

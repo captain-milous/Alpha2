@@ -110,45 +110,11 @@ namespace Komprese.src.UI
                             HelpHandler.Start();
                             break;
                         case Commands.compress:
-                            string text = string.Empty;
-                            if (!File.Exists(Config.InputFilePath))
-                            {
-                                Console.WriteLine($"Soubor na cestě {Config.InputFilePath} neexistuje.");
-                                Log.Write($"Soubor na cestě {Config.InputFilePath} neexistuje.");
-                            }
-                            else
-                            {
-                                Compression compressFile = new Compression(text);
-                                if (!string.IsNullOrEmpty(compressFile.CompressText))
-                                {
-                                    try
-                                    {
-                                        FileHandler.WriteToFile(Config.OutputFilePath, compressFile.CompressText);
-                                        Log.Write("Zkomprimovaný text byl úspěšně uložen.");
-                                        Console.WriteLine("Zkomprimovaný text byl úspěšně uložen.");
-                                    }
-                                    catch
-                                    {
-                                        Log.Write("Nastaly potíže při ukládání zkomprimovaného textu.");
-                                    }
-                                }
-                                else
-                                {
-                                    Log.Write($"V textovém souboru {Config.InputFilePath} není žádný text.");
-                                }
-                                try
-                                {
-                                    FileHandler.WriteDictToXml(CompressDict, Config.DictionaryFilePath);
-                                }
-                                catch 
-                                {
-                                    Log.Write("Nastala nečekaná chyba.");
-                                }
-                            }
+                            CompressUI.StartCompression(UserName);
                             Console.WriteLine();
                             break;
                         case Commands.decompress:
-                            text = string.Empty;
+                            string text = string.Empty;
                             if (!File.Exists(Config.InputFilePath))
                             {
                                 Console.WriteLine($"Soubor na cestě {Config.InputFilePath} neexistuje.");

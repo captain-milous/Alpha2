@@ -39,12 +39,14 @@ namespace Komprese.src.LogHandling
         /// <returns>Obsah logovacího souboru nebo prázdný řetězec v případě chyby.</returns>
         private string ReadLogFile()
         {
+            LogHandler log = new LogHandler();
             try
             {
                 return fileHandler.ReadFromFile(LogFilePath);
             }
-            catch
+            catch (Exception ex) 
             {
+                log.Write($"Chyba při čtení ze souboru {LogFilePath}: {ex.Message}");
                 return string.Empty;
             }
         }
@@ -55,6 +57,7 @@ namespace Komprese.src.LogHandling
         /// <param name="text">Text k zapsání do logovacího souboru.</param>
         public void Write(string text)
         {
+            LogHandler log = new LogHandler();
             try
             {
                 string output = string.Empty;
@@ -75,6 +78,7 @@ namespace Komprese.src.LogHandling
             catch (Exception ex)
             {
                 Console.WriteLine($"Chyba při zapsání do souboru {LogFilePath}: {ex.Message}");
+                log.Write($"Chyba při zapsání do souboru {LogFilePath}: {ex.Message}");
             }
 
         }
