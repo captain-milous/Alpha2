@@ -14,7 +14,7 @@ namespace Komprese.src.UI
         /// <summary>
         /// Instance třídy ConfigurationLoader pro načítání konfiguračních informací.
         /// </summary>
-        static ConfigurationLoader Config = Program.Config;
+        static ConfigurationLoader Config = MainMenuUI.Config;
         /// <summary>
         /// Instance třídy LogHandler pro zpracování a zápis logů aplikace.
         /// </summary>
@@ -46,8 +46,8 @@ namespace Komprese.src.UI
                 try
                 {
                     text = FileHandler.ReadFromFile(Config.InputFilePath);
-                    Console.WriteLine(text);
                     Console.WriteLine($"Text byl načten z {Config.InputFilePath}.");
+                    Console.WriteLine(text);
                 }
                 catch
                 {
@@ -56,6 +56,8 @@ namespace Komprese.src.UI
                     Log.Write($"Text se nepodařilo načíst {Config.InputFilePath}.");
                 }
                 Compression compressFile = new Compression(text);
+                Console.WriteLine(compressFile.CompressText);
+                Console.WriteLine(Config.OutputFilePath);
                 if (!string.IsNullOrEmpty(compressFile.CompressText))
                 {
                     Console.WriteLine($"Text se úspěšně zkompimoval.");

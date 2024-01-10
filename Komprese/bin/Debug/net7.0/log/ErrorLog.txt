@@ -1,3 +1,0 @@
-10.01.2024 13:40:02: Neočekávaná chyba při zápisu do souboru data\test.txt: The process cannot access the file 'C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\data\test.txt' because it is being used by another process.
-10.01.2024 13:43:49: Neočekávaná chyba při zápisu do souboru data\\test.txt: The process cannot access the file 'C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\data\test.txt' because it is being used by another process.
-10.01.2024 13:50:42: Neočekávaná chyba při zápisu do souboru data\test.txt: The process cannot access the file 'C:\Users\milda\source\repos\Alpha\Alpha2\Komprese\bin\Debug\net7.0\data\test.txt' because it is being used by another process.

@@ -31,7 +31,7 @@ namespace Komprese.src.UI
         /// <summary>
         /// Instance třídy ConfigurationLoader pro načítání konfiguračních informací.
         /// </summary>
-        static ConfigurationLoader Config = Program.Config;
+        public static ConfigurationLoader Config = Program.Config;
         /// <summary>
         /// Slovník obsahující kompresní zkratky.
         /// </summary>
