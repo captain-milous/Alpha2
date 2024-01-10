@@ -23,6 +23,8 @@ Program vyžaduje konfigurační soubor pro nastavení cest k vstupním a výstu
 ## Vstupní Data
 Program pracuje s textovými soubory, které jsou vhodné k kompresi a dekompresi. Před spuštěním programu zajistěte, že vstupní soubor obsahuje textová data ve formátu, který chcete komprimovat a dekomprimovat.
 
+**Defaultní vstupní i výstupní cesty k souboruům najdete v konfiguraci, tam je též můžete změnit.**
+
 ## Ovládání Programu
 Po spuštění programu se zobrazí uživatelské rozhraní v příkazovém řádku. Uživatel může používat následující příkazy:
 
@@ -37,6 +39,9 @@ Po spuštění programu se zobrazí uživatelské rozhraní v příkazovém řá
 Program využívá slovník kompresních zkratek k identifikaci opakujících se slov v textu. Při kompresi se každé slovo nahrazuje odpovídajícím zkráceným klíčem. Při dekompresi dochází k opačnému procesu, kde každý zkrácený klíč je nahrazen původním slovem.
 
 Logika komprese a dekomprese je založena na minimalizaci opakování slov v textu a jejich nahrazení zkrácenými klíči. Slovník kompresních zkrat se ukládá do XML souboru pro udržení stavu mezi různými běhy programu.
+
+## Testování
+Program byl testován spolužáky (viz. Testovani) a jinými náhodnými lidmi.
 
 ## Autor
 Miloš Tesař C4b
