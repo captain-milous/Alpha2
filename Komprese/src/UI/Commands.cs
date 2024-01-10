@@ -17,6 +17,7 @@ namespace Komprese.src.UI
         decompress,
         input,
         output,
+        logs,
         exit
     }
 }
