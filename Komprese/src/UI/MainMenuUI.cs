@@ -195,6 +195,10 @@ namespace Komprese.src.UI
                             }
                             Console.WriteLine();
                             break;
+                        case Commands.logs:
+                            string text = FileHandler.ReadFromFile("log\\LogFile.txt");
+                            Console.WriteLine(text);
+                            break;
                         case Commands.exit:
                             Log.Write($"{UserName} ukončil program");
                             run = false;

@@ -17,6 +17,7 @@ namespace Komprese.src.UI
         private static Dictionary<Commands, string> description = new Dictionary<Commands, string>() 
         {
             //{ Commands.help, "Zobrazí seznam možných komandů." },
+            { Commands.logs, "Výpis z logu." },
             { Commands.input, "Změna cesty k souboru, který chcete kompresovat/dekomresovat."},
             { Commands.output, "Změna cesty k souboru, do kterého chcete provést kompresy/dekomresy."},
             { Commands.compress, "Komprimuje soubor, který byl zadán v konfiguračním souboru jako InputFilePath do souboru OutputFilePath" },
